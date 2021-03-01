@@ -1,0 +1,64 @@
+.ban{
+    text-align: center;
+    margin:10% 20%;
+}
+
+
+#field td {
+    border: 1px solid black;
+    width: 20%;
+    background-color: rgb(92, 103, 92);
+    vertical-align: top;
+    text-align: center;
+    table-layout: auto;
+    padding: 10% 1px 1px 1px;
+    position:relative;
+    cursor:pointer;
+    font-size: 400%;  
+
+}
+
+
+
+
+
+
+
+
+
+
+header{
+    background-color: aquamarine;
+    font-size: 50px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.field-wrap{
+    width: 100% ;
+}
+
+#field{
+    border: 1px solid black;
+    width:100%;
+}
+
+button{
+    width:100%;
+    cursor: pointer;
+}
+
+@media(max-width:1000px){
+    .ban{
+        text-align: center;
+        margin:10% 10%;
+    }
+}
+
+@media(max-width:670px){
+    .ban{
+        text-align: center;
+        margin:10% 0%;
+    }
+}
+
+

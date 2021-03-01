@@ -3,46 +3,9 @@
 <html>
 <head>
 <title>Tic Tac Tosumi</title>
-<style type="text/css">
-
-.ban{
-    text-align: center;
-    margin:10% 20%;
-}
-
-
-#field td {
-    border: 1px solid black;
-    width: 33%;
-    background-color: rgb(92, 103, 92);
-    vertical-align: top;
-    text-align: center;
-    table-layout: fixed;
-    padding: 33% 1px 1px 1px;
-    position:relative;
-    
-}
-
-
-
-
-
-header{
-    background-color: aquamarine;
-    font-size: 50px;
-}
-
-.field-wrap{
-    width: 100% ;
-}
-
-#field{
-    border: 1px solid black;
-    width:100%;
-}
-
-
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -51,14 +14,12 @@ header{
 <!- 盤面 ->
 <header>Tic Tac Tosumi</header>
 <div class="ban">
-    <div class="field-wrap">
-        <table id="field">
-        </table>
-    </div>
-    <!- ターンの表示 ->
     <p id="view_tarn"></p>
-    <!- 初期化ボタン ->
     <button type="button" id="ban_init" onclick="ban_init()">やり直し</button>
+    <div class="field-wrap">
+        <table id="field"></table>
+    </div>
+    <!- 初期化ボタン ->
 </div>
 
 
@@ -169,7 +130,7 @@ function ban_set () {
         for (var y = 0; y < 3; y++) {
             switch( ban_ar[x][y] ) {
                 case 0:
-                stone = "あ"
+                stone = "-"
                 break;
                 case -1:
                 stone = "×"
