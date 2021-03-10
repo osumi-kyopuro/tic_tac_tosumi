@@ -20,6 +20,8 @@
         <table id="field"></table>
     </div>
     <!- 初期化ボタン ->
+
+      
 </div>
 
 
@@ -35,6 +37,7 @@ for (var x = 0; x < ban_ar.length; x++){
 }
 var ban = document.getElementById('field');
 var flag=0;
+var flag2=0;
 var cnt=0;
 
 // 取得したテーブルに盤面生成
@@ -53,11 +56,16 @@ for (var x = 0; x < 3; x++) {
                 ban_ar[this.parentNode.rowIndex][this.cellIndex]=turn;
                 cnt++;
                 turn*=-1;
+                flag2=0;
                 ban_set()
                 ban_check()
                 if(flag===0){
                     change_turn()
-                    ai()
+                    smart_ai()
+                    if(flag2===0){
+                        ai()        
+                    }
+                    
                     cnt++;
                     turn*=-1;
                     ban_set()
@@ -178,6 +186,74 @@ function ai(){
     var random=Math.floor(Math.random()*s.length);
     ban_ar[s[random][0]][s[random][1]]=-1;
 }
+
+function smart_ai(){
+    var i=0;
+    while(flag2===0&&i<3){
+        if(ban_ar[i][2]===0&&ban_ar[i][0]!==0&&ban_ar[i][0]===ban_ar[i][1]){
+            ban_ar[i][2]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[i][1]===0&&ban_ar[i][0]!==0&&ban_ar[i][0]===ban_ar[i][2]){
+            ban_ar[i][1]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[i][0]===0&&ban_ar[i][2]!==0&&ban_ar[i][1]===ban_ar[i][2]){
+            ban_ar[i][0]=-1;
+            flag2=1;
+        }
+        i=i+1;
+    }
+
+    i=0;
+    while(flag2===0&&i<3){
+        if(ban_ar[2][i]===0&&ban_ar[0][i]!==0&&ban_ar[0][i]===ban_ar[1][i]){
+            ban_ar[2][i]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[1][i]===0&&ban_ar[0][i]!==0&&ban_ar[0][i]===ban_ar[2][i]){
+            ban_ar[1][i]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[0][i]===0&&ban_ar[2][i]!==0&&ban_ar[1][i]===ban_ar[2][i]){
+            ban_ar[0][i]=-1;
+            flag2=1;
+        }
+        i=i+1;
+    }
+    if(flag2===0){
+        if(ban_ar[0][0]===0&&ban_ar[1][1]!==0&&ban_ar[1][1]===ban_ar[2][2]){
+            ban_ar[0][0]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[1][1]===0&&ban_ar[0][0]!==0&&ban_ar[0][0]===ban_ar[2][2]){
+            ban_ar[1][1]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[2][2]===0&&ban_ar[2][2]!==0&&ban_ar[1][1]===ban_ar[0][0]){
+            ban_ar[2][2]=-1;
+            flag2=1;
+        }
+    }
+    if(flag2===0){
+        if(ban_ar[0][2]===0&&ban_ar[1][1]!==0&&ban_ar[1][1]===ban_ar[2][0]){
+            ban_ar[0][2]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[1][1]===0&&ban_ar[0][2]!==0&&ban_ar[0][2]===ban_ar[2][0]){
+            ban_ar[1][1]=-1;
+            flag2=1;
+        }
+        else if(ban_ar[2][0]===0&&ban_ar[2][0]!==0&&ban_ar[1][1]===ban_ar[0][2]){
+            ban_ar[2][0]=-1;
+            flag2=1;
+        }
+    }
+    return;
+    
+}
+
+
 
 
 
