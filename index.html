@@ -4,7 +4,9 @@
 <head>
 <title>Tic Tac Tosumi</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sanitize.css">
 <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -15,13 +17,11 @@
 <header>Tic Tac Tosumi</header>
 <div class="ban">
     <p id="view_tarn"></p>
-    <button type="button" id="ban_init" onclick="ban_init()">やり直し</button>
+    <button type="button" id="ban_init" onclick="ban_init()"><span><i class="fa fa-redo"></i></span>Redo</button>
     <div class="field-wrap">
         <table id="field"></table>
     </div>
-    <!- 初期化ボタン ->
-
-      
+    <!- 初期化ボタン ->      
 </div>
 
 
@@ -80,11 +80,11 @@ function change_turn(){
     var tarn_msg = document.getElementById('view_tarn')
     if(turn == -1){
     // 0は最初として、メッセージのみで処理終了
-        tarn_msg.textContent = "○の番です。"
+        tarn_msg.textContent = "○'s turn!"
         return
     }
     else{
-        tarn_msg.textContent = "×の番です。"
+        tarn_msg.textContent = "×'s turn!"
         return
     }
 
@@ -102,18 +102,18 @@ function ban_check(){
     || (ban_ar[1][2]!==0&&ban_ar[1][2]===ban_ar[0][2]&&ban_ar[1][2]===ban_ar[2][2])){
         if(turn == 1){
         // 0は最初として、メッセージのみで処理終了
-            tarn_msg.textContent = "×の勝ちです。"
+            tarn_msg.textContent = "×'s win!"
             flag=1;
             return
         }
         else{
-            tarn_msg.textContent = "○の勝ちです。"
+            tarn_msg.textContent = "○'s win!"
             flag=1;
             return
         }
     }
     else if(cnt==9){
-        tarn_msg.textContent = "引き分けです。"
+        tarn_msg.textContent = "Draw!"
         flag=1;
         return
     }
@@ -165,7 +165,7 @@ function ban_init () {
     ban_set()
     flag=0;
     var tarn_msg = document.getElementById('view_tarn')
-    tarn_msg.textContent = "○の番です。"
+    tarn_msg.textContent = "○'s turn!"
     turn=1;
     cnt=0;
 

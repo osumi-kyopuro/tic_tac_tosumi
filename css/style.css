@@ -1,6 +1,6 @@
 .ban{
     text-align: center;
-    margin:10% 20%;
+    margin:5% 20%;
 }
 
 
@@ -19,8 +19,33 @@
 }
 
 
+#field td:hover{
+    background-color: rgba(92, 103, 92,0.5);
+}
 
 
+button{
+    background-color:rgb(255, 132, 0);
+    height:70px;
+    font-size: 40px;
+}
+
+button:hover{
+    background-color:rgba(255, 132, 0,0.5);
+}
+
+#view_tarn{
+    font-size:50px;
+    margin:0;
+}
+
+span{
+    margin:auto 10px;
+}
+
+header{
+    padding:1%;
+}
 
 
 
