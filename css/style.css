@@ -99,17 +99,45 @@ button{
     cursor: pointer;
 }
 
+input[type=radio] {
+    font-size:30px;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+p{
+    font-size:50px;
+}
+
 @media(max-width:1000px){
     .ban{
         text-align: center;
         margin:10% 10%;
     }
+    input[type=radio] {
+        font-size:30px;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+    p{
+        font-size:50px;
+    }
 }
 
-@media(max-width:670px){
+@media(max-width:600px){
     .ban{
         text-align: center;
         margin:10% 0%;
+    }
+    input[type=radio] {
+        font-size:30px;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+    p{
+        font-size:50px;
     }
 }
 
