@@ -47,6 +47,32 @@ header{
     padding:1%;
 }
 
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: #999;
+    background-color: #222;
+}
+  
+.social-icon {
+    vertical-align: top;
+    text-align: center;
+    display: inline-block;
+    background: rgba(94, 144, 255, 0.75);
+    width: 52px;
+    height: 52px;
+    padding-top: 13px;
+    border-radius: 50%;
+    color: #e3e3e3;
+    font-size: 24px;
+    margin: 0 15px;
+}
+
+.social-icon:hover{
+    color: #e3e3e3;
+    background-color: rgb(94, 144, 255);
+}
+
 
 
 

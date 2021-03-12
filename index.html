@@ -4,6 +4,7 @@
 <head>
 <title>Tic Tac Tosumi</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/sanitize.css">
@@ -16,36 +17,89 @@
 <!- 盤面 ->
 <header>Tic Tac Tosumi</header>
 <div class="ban">
-    <p id="view_tarn"></p>
-    <button type="button" id="ban_init" onclick="ban_init()"><span><i class="fa fa-redo"></i></span>Redo</button>
+    <p> Player<span>
+    <input type="radio" name="order" value="0" id="radio" onchange="co(this.value)" checked>まる
+    <input type="radio" name="order" value="1" id="radio" onchange="co(this.value)" >ばつ
+    </span></p>
+
+    <p>Difficulty<span>
+    <input type="radio" name="order2" value="2" id="radio" onchange="level(this.value)" checked>易
+    <input type="radio" name="order2" value="3" id="radio" onchange="level(this.value)" >難
+    <p id="view_tarn"></span></p>
+    <button type="button" id="ban_init" onclick="ban_init(number)"><span><i class="fa fa-redo"></i></span>Redo</button>
     <div class="field-wrap">
         <table id="field"></table>
     </div>
-    <!- 初期化ボタン ->      
 </div>
+
+    <footer>
+        <div class="container">
+            <div class="follow-us">
+            <a href="https://github.com/osumi-kyopuro" class="social-icon" target='_blank'>
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://twitter.com/osumi_kyopuro" class="social-icon" target='_blank'>
+                <i class="fab fa-twitter"></i>
+            </a>
+            </div>
+            <div class="copyright">©2021-
+                Tic Toc Tosumi
+            </div>
+        </div>
+    </footer>
+    </body>
 
 
 <script type="text/javascript">
 
 // 初期画面起動時
 // 初期変数定義
-var turn = 1 // ターン 1:黒、-1:白
+var turn = 1 
 // 盤面の状況を二次元配列で定義
 var ban_ar = new Array(3)
 for (var x = 0; x < ban_ar.length; x++){
     ban_ar[x] = new Array(3)
 }
+var number=0;
 var ban = document.getElementById('field');
+ban_new()
+ban_init(0)
+ban_set()
+
 var flag=0;
 var flag2=0;
+var flag3=0;
 var cnt=0;
+function co(val){
+    for(var i=0;i<2;i++){
+        if(String(i)===val){
+            number=i;
+            break;
+        }
+    }
+    ban_init(number)
+    ban_set()
+    
+}
+
+function level(val){
+    if(val===2){
+        flag3=0;
+    }
+    else{
+        flag3=1;
+    }
+    return ;
+}
+
+
+
 
 // 取得したテーブルに盤面生成
-ban_new()
 
-ban_init()
-ban_set()
 // クリックした時に実行されるイベント
+
+
 for (var x = 0; x < 3; x++) {
     for (var y = 0; y < 3; y++) {
         var select_cell = ban.rows[x].cells[y];
@@ -61,9 +115,14 @@ for (var x = 0; x < 3; x++) {
                 ban_check()
                 if(flag===0){
                     change_turn()
-                    smart_ai()
-                    if(flag2===0){
-                        ai()        
+                    if(flag3===1){
+                        smart_ai()
+                        if(flag2===0){
+                            ai()        
+                        }
+                    }
+                    else{
+                        ai()
                     }
                     
                     cnt++;
@@ -104,18 +163,21 @@ function ban_check(){
         // 0は最初として、メッセージのみで処理終了
             tarn_msg.textContent = "×'s win!"
             flag=1;
-            return
+            cnt=0;
+            return;
         }
         else{
             tarn_msg.textContent = "○'s win!"
             flag=1;
-            return
+            cnt=0;
+            return;
         }
     }
     else if(cnt==9){
         tarn_msg.textContent = "Draw!"
         flag=1;
-        return
+        cnt=0;
+        return;
     }
 }
 
@@ -154,7 +216,7 @@ function ban_set () {
 };
 
 // 盤面を初期化する処理
-function ban_init () {
+function ban_init (number) {
     // 全てをクリア
     for (var x = 0; x < 3; x++) {
         for (var y = 0; y < 3; y++) {
@@ -164,10 +226,21 @@ function ban_init () {
     
     ban_set()
     flag=0;
-    var tarn_msg = document.getElementById('view_tarn')
-    tarn_msg.textContent = "○'s turn!"
-    turn=1;
-    cnt=0;
+    var tarn_msg = document.getElementById('view_tarn');
+    if(number===0){
+        tarn_msg.textContent = "○'s turn!"
+        turn=1;
+        cnt=0;
+    }
+    else{
+        turn=1;
+        tarn_msg.textContent = "×'s turn!"
+        ai()
+        ban_set()
+        cnt=1;
+        turn=-1;
+    }
+    return;
 
     // ターンも初期化
 };
@@ -184,22 +257,22 @@ function ai(){
         }
     }
     var random=Math.floor(Math.random()*s.length);
-    ban_ar[s[random][0]][s[random][1]]=-1;
+    ban_ar[s[random][0]][s[random][1]]=turn;
 }
 
 function smart_ai(){
     var i=0;
     while(flag2===0&&i<3){
         if(ban_ar[i][2]===0&&ban_ar[i][0]!==0&&ban_ar[i][0]===ban_ar[i][1]){
-            ban_ar[i][2]=-1;
+            ban_ar[i][2]=turn;
             flag2=1;
         }
         else if(ban_ar[i][1]===0&&ban_ar[i][0]!==0&&ban_ar[i][0]===ban_ar[i][2]){
-            ban_ar[i][1]=-1;
+            ban_ar[i][1]=turn;
             flag2=1;
         }
         else if(ban_ar[i][0]===0&&ban_ar[i][2]!==0&&ban_ar[i][1]===ban_ar[i][2]){
-            ban_ar[i][0]=-1;
+            ban_ar[i][0]=turn;
             flag2=1;
         }
         i=i+1;
@@ -208,44 +281,44 @@ function smart_ai(){
     i=0;
     while(flag2===0&&i<3){
         if(ban_ar[2][i]===0&&ban_ar[0][i]!==0&&ban_ar[0][i]===ban_ar[1][i]){
-            ban_ar[2][i]=-1;
+            ban_ar[2][i]=turn;
             flag2=1;
         }
         else if(ban_ar[1][i]===0&&ban_ar[0][i]!==0&&ban_ar[0][i]===ban_ar[2][i]){
-            ban_ar[1][i]=-1;
+            ban_ar[1][i]=turn;
             flag2=1;
         }
         else if(ban_ar[0][i]===0&&ban_ar[2][i]!==0&&ban_ar[1][i]===ban_ar[2][i]){
-            ban_ar[0][i]=-1;
+            ban_ar[0][i]=turn;
             flag2=1;
         }
         i=i+1;
     }
     if(flag2===0){
         if(ban_ar[0][0]===0&&ban_ar[1][1]!==0&&ban_ar[1][1]===ban_ar[2][2]){
-            ban_ar[0][0]=-1;
+            ban_ar[0][0]=turn;
             flag2=1;
         }
         else if(ban_ar[1][1]===0&&ban_ar[0][0]!==0&&ban_ar[0][0]===ban_ar[2][2]){
-            ban_ar[1][1]=-1;
+            ban_ar[1][1]=turn;
             flag2=1;
         }
         else if(ban_ar[2][2]===0&&ban_ar[2][2]!==0&&ban_ar[1][1]===ban_ar[0][0]){
-            ban_ar[2][2]=-1;
+            ban_ar[2][2]=turn;
             flag2=1;
         }
     }
     if(flag2===0){
         if(ban_ar[0][2]===0&&ban_ar[1][1]!==0&&ban_ar[1][1]===ban_ar[2][0]){
-            ban_ar[0][2]=-1;
+            ban_ar[0][2]=turn;
             flag2=1;
         }
         else if(ban_ar[1][1]===0&&ban_ar[0][2]!==0&&ban_ar[0][2]===ban_ar[2][0]){
-            ban_ar[1][1]=-1;
+            ban_ar[1][1]=turn;
             flag2=1;
         }
         else if(ban_ar[2][0]===0&&ban_ar[2][0]!==0&&ban_ar[1][1]===ban_ar[0][2]){
-            ban_ar[2][0]=-1;
+            ban_ar[2][0]=turn;
             flag2=1;
         }
     }
