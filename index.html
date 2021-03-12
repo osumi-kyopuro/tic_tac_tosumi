@@ -17,15 +17,18 @@
 <!- 盤面 ->
 <header>Tic Tac Tosumi</header>
 <div class="ban">
-    <p> Player<span>
-    <input type="radio" name="order" value="0" id="radio" onchange="co(this.value)" checked>まる
-    <input type="radio" name="order" value="1" id="radio" onchange="co(this.value)" >ばつ
-    </span></p>
-
-    <p>Difficulty<span>
-    <input type="radio" name="order2" value="2" id="radio" onchange="level(this.value)" checked>易
-    <input type="radio" name="order2" value="3" id="radio" onchange="level(this.value)" >難
-    <p id="view_tarn"></span></p>
+    <div class="checkbox">
+        <p> Player<span>
+        <input type="radio" name="order" value="0" id="radio" onchange="co(this.value)" checked>まる
+        <input type="radio" name="order" value="1" id="radio" onchange="co(this.value)" >ばつ
+        </span></p>
+    
+        <p>Difficulty<span>
+        <input type="radio" name="order2" value="2" id="radio" onchange="level(this.value)" checked>易
+        <input type="radio" name="order2" value="3" id="radio" onchange="level(this.value)" >難
+    </div>
+    
+    <p id="view_tarn"></p>
     <button type="button" id="ban_init" onclick="ban_init(number)"><span><i class="fa fa-redo"></i></span>Redo</button>
     <div class="field-wrap">
         <table id="field"></table>
