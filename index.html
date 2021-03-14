@@ -121,10 +121,8 @@ for (var x = 0; x < 3; x++) {
                 ban_set()
                 ban_check()
                 if(flag===0){
-                    change_turn()
                     if(flag3===2){
                         expert_ai()
-                        check.textContent = flag2
                         if(flag2===0){
                             ai()
                         }
@@ -384,7 +382,7 @@ function expert_ai(){
             ban_ar[1][1]=turn;
             flag2=1;
         }
-        else if(ban_ar[2][2]===0&&ban_ar[2][2]===turn&&ban_ar[1][1]===ban_ar[0][0]){
+        else if(ban_ar[2][2]===0&&ban_ar[1][1]===turn&&ban_ar[1][1]===ban_ar[0][0]){
             ban_ar[2][2]=turn;
             flag2=1;
         }
@@ -398,7 +396,7 @@ function expert_ai(){
             ban_ar[1][1]=turn;
             flag2=1;
         }
-        else if(ban_ar[2][0]===0&&ban_ar[2][0]===turn&&ban_ar[1][1]===ban_ar[0][2]){
+        else if(ban_ar[2][0]===0&&ban_ar[0][2]===turn&&ban_ar[1][1]===ban_ar[0][2]){
             ban_ar[2][0]=turn;
             flag2=1;
         }
